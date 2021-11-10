@@ -1,3 +1,6 @@
+
+
+
 <!doctype html>
 <html>
 <head>
@@ -12,7 +15,7 @@
  
 		// Step 2: Open the JSON file at remote location
  
-			request.open("GET", "https://v2.jokeapi.dev/joke/Any", true);
+			request.open("GET", "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit", true);
 
 			console.log("2: open success");
  	
@@ -30,8 +33,6 @@
 					returnHTML = theData;
 					data = JSON.parse(theData);
 					
-					returnHTML += "<br>"+
-						data["description"];
 
 					document.getElementById("messages").innerHTML =returnHTML;
 				}
@@ -66,6 +67,7 @@
     <p> Jokes website: <a href="https://v2.jokeapi.dev/joke/Any">https://v2.jokeapi.dev/joke/Any</a><br>
         Where I found it: <a href="https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/">https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/</a></p>
         <p>It may be used for an app which tells you daily jokes to brighten your day. It can also be an app which gives a list of jokes based on the type of joke you would like</p>
+		<p> I used the XMLHttpRequest option to request the data from the public API. 
         
 </body>
 </html>
