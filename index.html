@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+	<title>JSON Data</title>
+	<meta charset="utf-8"/>
+	<script>
+		function loadMessages() {
+			/* Step 1: Make instance of XHR object...
+			...to make HTTP request after page is loaded*/
+			request = new XMLHttpRequest();
+			console.log("1: created request");
+ 
+		// Step 2: Open the JSON file at remote location
+ 
+			request.open("GET", "https://v2.jokeapi.dev/joke/Any", true);
+
+			console.log("2: open success");
+ 	
+			// Step 3: set up callback for when HTTP response is returned (i.e., you get the JSON file back)
+
+			request.onreadystatechange = function() {
+				console.log("3:  event fired");
+			
+ 
+				if (request.readyState == 4 && request.status == 200) {
+
+					// Step 5: when we get all the JSON data back, parse it and use it
+					console.log("5:  data is ready");
+					theData = request.responseText;
+					returnHTML = theData;
+					data = JSON.parse(theData);
+					
+					returnHTML += "<br>"+
+						data["description"];
+
+					document.getElementById("messages").innerHTML =returnHTML;
+				}
+				else if (request.readyState == 4 && request.status != 200) {
+
+					document.getElementById("messages").innerHTML = "Whoops, something went terribly wrong!";
+
+				}
+
+				else if (request.readyState == 3) {
+
+					console.log("6:  ready state 3- request received,data being sent");
+					document.getElementById("messages").innerHTML = "Come back soon!";
+
+				}
+
+			}//end on readystate change
+	
+		// Step 4: fire off the HTTP request
+			request.send();
+			console.log("4 request sent");
+		}
+	</script>
+</head>
+
+
+<body onload="loadMessages()">
+
+	<h1>JSON Data</h1>
+	<div id="messages">Loading...</div>
+    <h2>API Info</h2>
+    <p> Jokes website: <a href="https://v2.jokeapi.dev/joke/Any">https://v2.jokeapi.dev/joke/Any</a><br>
+        Where I found it: <a href="https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/">https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/</a></p>
+        <p>It may be used for an app which tells you daily jokes to brighten your day. It can also be an app which gives a list of jokes based on the type of joke you would like</p>
+        
+</body>
+</html>
